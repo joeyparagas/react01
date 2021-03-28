@@ -48,6 +48,29 @@ class App extends Component {
       cursor: 'pointer'
     };
 
+    let persons = null;     //variable to equate to initial hidden/null div
+
+    // Conditional statement switch between null or inserting div block
+    if (this.state.showPersons) {
+      persons = (
+        <div>
+          <Person
+            name={this.state.persons[0].name}
+            age={this.state.persons[0].age}
+            // Clicking on name changes DOM
+            click={this.switchNameHandler.bind(this, 'John')} >My Job: Teacher</Person>
+          <Person
+            name={this.state.persons[1].name}
+            age={this.state.persons[1].age}
+            // Only input box that changes the DOM
+            changed={this.nameChangeHandler} />
+          <Person
+            name={this.state.persons[2].name}
+            age={this.state.persons[2].age} />
+        </div>
+      )
+    }
+
     return (
       <div className="App">
         <h1>I'm a React App</h1>
@@ -57,28 +80,9 @@ class App extends Component {
           // On click, run fuction
           onClick={this.togglePersonsHandler}>
           Toggle Persons</button>
-
-        {
-          // Ternary operator (Show/Hide): Output div if true, null if false
-          this.state.showPersons ?
-            <div>
-              <Person
-                name={this.state.persons[0].name}
-                age={this.state.persons[0].age}
-                // Clicking on name changes DOM
-                click={this.switchNameHandler.bind(this, 'John')} >My Job: Teacher</Person>
-              <Person
-                name={this.state.persons[1].name}
-                age={this.state.persons[1].age}
-                // Only input box that changes the DOM
-                changed={this.nameChangeHandler} />
-              <Person
-                name={this.state.persons[2].name}
-                age={this.state.persons[2].age} />
-            </div>
-            : null
-        }
-
+        {/* Rewritten for a more common way of using conditionals */}
+        {/* Inserting variable instead of div block */}
+        {persons}
       </div>
     );
     // The simplifed code above is what gets compiled to what is seen below
