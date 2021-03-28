@@ -8,7 +8,9 @@ class App extends Component {
       { name: 'Joey', age: 52 },
       { name: 'Calista', age: 5 },
       { name: 'Grayson', age: 2 }
-    ]
+    ],
+    otherState: 'some other values',
+    showPersons: false  //New boolean object to be toggled
   }
 
   switchNameHandler = (newName) => {
@@ -31,6 +33,12 @@ class App extends Component {
     })
   }
 
+  // Function to toggle inverse of showPersons object
+  togglePersonsHandler = () => {
+    const doesShow = this.state.showPersons;
+    this.setState({ showPersons: !doesShow })
+  }
+
   render() {
     const style = {
       backgroundColor: 'white',
@@ -46,22 +54,30 @@ class App extends Component {
         <p>This is working!</p>
         <button
           style={style}
-          onClick={() => this.switchNameHandler('Arnold')}>
-          Don't Click</button>
+          // On click, run fuction
+          onClick={this.togglePersonsHandler}>
+          Toggle Persons</button>
 
-        <div>
-          <Person
-            name={this.state.persons[0].name}
-            age={this.state.persons[0].age}
-            click={this.switchNameHandler.bind(this, 'John!')} >My Job: Teacher</Person>
-          <Person
-            name={this.state.persons[1].name}
-            age={this.state.persons[1].age}
-            changed={this.nameChangeHandler} />
-          <Person
-            name={this.state.persons[2].name}
-            age={this.state.persons[2].age} />
-        </div>
+        {
+          // Ternary operator (Show/Hide): Output div if true, null if false
+          this.state.showPersons ?
+            <div>
+              <Person
+                name={this.state.persons[0].name}
+                age={this.state.persons[0].age}
+                // Clicking on name changes DOM
+                click={this.switchNameHandler.bind(this, 'John')} >My Job: Teacher</Person>
+              <Person
+                name={this.state.persons[1].name}
+                age={this.state.persons[1].age}
+                // Only input box that changes the DOM
+                changed={this.nameChangeHandler} />
+              <Person
+                name={this.state.persons[2].name}
+                age={this.state.persons[2].age} />
+            </div>
+            : null
+        }
 
       </div>
     );
