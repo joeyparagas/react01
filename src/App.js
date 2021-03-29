@@ -7,8 +7,9 @@ class App extends Component {
     persons: [
       // added psudo id #s
       { id: 'sfdlkj1', name: 'Joey', age: 52 },
-      { id: 'fjdksa2', name: 'Calista', age: 5 },
-      { id: 'eixcsi3', name: 'Grayson', age: 2 }
+      { id: 'asdfpo2', name: 'Leslie', age: 12 },
+      { id: 'fjdksa3', name: 'Calista', age: 5 },
+      { id: 'eixcsi4', name: 'Grayson', age: 2 }
     ],
     otherState: 'some other values',
     showPersons: true  //New boolean object to be toggled
