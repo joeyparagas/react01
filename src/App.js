@@ -5,32 +5,42 @@ import Person from './Person/Person'
 class App extends Component {
   state = {
     persons: [
-      { name: 'Joey', age: 52 },
-      { name: 'Calista', age: 5 },
-      { name: 'Grayson', age: 2 }
+      // added psudo id #s
+      { id: 'sfdlkj1', name: 'Joey', age: 52 },
+      { id: 'fjdksa2', name: 'Calista', age: 5 },
+      { id: 'eixcsi3', name: 'Grayson', age: 2 }
     ],
     otherState: 'some other values',
-    showPersons: false  //New boolean object to be toggled
+    showPersons: true  //New boolean object to be toggled
   }
 
-  switchNameHandler = (newName) => {
-    this.setState({
-      persons: [
-        { name: newName, age: 52 },
-        { name: 'Calista', age: 5 },
-        { name: 'Grayson', age: 22 }
-      ]
-    })
+  // Delete Person component function
+  deletePersonHandler = (personIndex) => {
+    //const persons = this.state.persons.slice(); // copy array of object using slice method
+    const persons = [...this.state.persons];      // copy array of object using spread operator
+    persons.splice(personIndex, 1);               // this removes 1 element from array
+    this.setState({ persons: persons });          // set the state persons array: with new persons array from splice
+
   }
 
-  nameChangeHandler = (event) => {
-    this.setState({
-      persons: [
-        { name: 'Arnold', age: 52 },
-        { name: event.target.value, age: 5 },
-        { name: 'Grayson', age: 22 }
-      ]
-    })
+  nameChangedHandler = (event, id) => {
+    // personIndex = the index value of object with matching ID #s
+    // using findIndex() to find the right preson object with matching ID
+    const personIndex = this.state.persons.findIndex(p => {
+      return p.id === id;
+    });
+
+    // variable to find right obj index# and copy object
+    const person = { ...this.state.persons[personIndex] };
+    // sets name property of copied person obj to input value
+    person.name = event.target.value;
+    // create copy of original state
+    const persons = [...this.state.persons];
+    // find right obj using index# and update that obj
+    persons[personIndex] = person;
+
+    // update state with new persons object
+    this.setState({ persons: persons })
   }
 
   // Function to toggle inverse of showPersons object
@@ -54,19 +64,21 @@ class App extends Component {
     if (this.state.showPersons) {
       persons = (
         <div>
-          <Person
-            name={this.state.persons[0].name}
-            age={this.state.persons[0].age}
-            // Clicking on name changes DOM
-            click={this.switchNameHandler.bind(this, 'John')} >My Job: Teacher</Person>
-          <Person
-            name={this.state.persons[1].name}
-            age={this.state.persons[1].age}
-            // Only input box that changes the DOM
-            changed={this.nameChangeHandler} />
-          <Person
-            name={this.state.persons[2].name}
-            age={this.state.persons[2].age} />
+          {
+            // User map function to grab persons array of objects and output to Person component. 
+            // This makes it so your array of object can be any length instead of hard coded.
+            this.state.persons.map((person, index) => {
+              return <Person
+                name={person.name}
+                age={person.age}
+                key={person.id}
+                //onClick run deletePersonHandler passing the index of array it's clicked on
+                click={() => this.deletePersonHandler(index)}
+                //onChange run nameChangedHandler when event happens passing person.id#
+                changed={(event) => this.nameChangedHandler(event, person.id)}
+              />
+            })
+          }
         </div>
       )
     }
@@ -85,8 +97,7 @@ class App extends Component {
         {persons}
       </div>
     );
-    // The simplifed code above is what gets compiled to what is seen below
-    // return React.createElement('div', { className: 'App' }, React.createElement('h1', null, 'I\'m Happy!!!'));
+
   }
 }
 
