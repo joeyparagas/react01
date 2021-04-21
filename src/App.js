@@ -12,7 +12,7 @@ class App extends Component {
       { id: 'eixcsi4', name: 'Grayson', age: 2 }
     ],
     otherState: 'some other values',
-    showPersons: true  //New boolean object to be toggled
+    showPersons: false  //New boolean object to be toggled (set to true if default on)
   }
 
   // Delete Person component function
@@ -24,6 +24,7 @@ class App extends Component {
 
   }
 
+  // Change the name on screen to what is typed in input box
   nameChangedHandler = (event, id) => {
     // personIndex = the index value of object with matching ID #s
     // using findIndex() to find the right preson object with matching ID
@@ -35,13 +36,14 @@ class App extends Component {
     const person = { ...this.state.persons[personIndex] };
     // sets name property of copied person obj to input value
     person.name = event.target.value;
-    // create copy of original state
+    // create copy of original state    
     const persons = [...this.state.persons];
     // find right obj using index# and update that obj
     persons[personIndex] = person;
 
     // update state with new persons object
     this.setState({ persons: persons })
+
   }
 
   // Function to toggle inverse of showPersons object
@@ -51,17 +53,20 @@ class App extends Component {
   }
 
   render() {
+
+    // style button using inline style
     const style = {
-      backgroundColor: 'white',
+      backgroundColor: 'green',
+      color: 'white',
       font: 'inherit',
       border: '1px solid blue',
       padding: '8px',
       cursor: 'pointer'
     };
 
-    let persons = null;     //variable to equate to initial hidden/null div
+    let persons = null;     // variable to equate to initial hidden/null div
 
-    // Conditional statement switch between null or inserting div block
+    // Conditional statement switch between null or inserting div block of Person component
     if (this.state.showPersons) {
       persons = (
         <div>
@@ -81,7 +86,9 @@ class App extends Component {
             })
           }
         </div>
-      )
+      );
+      // if showing results, then also change button style to red fill
+      style.backgroundColor = 'red';
     }
 
     return (
@@ -90,11 +97,9 @@ class App extends Component {
         <p>This is working!</p>
         <button
           style={style}
-          // On click, run fuction
+          // On click, run fuction note lack of () as to not run automatically on load
           onClick={this.togglePersonsHandler}>
           Toggle Persons</button>
-        {/* Rewritten for a more common way of using conditionals */}
-        {/* Inserting variable instead of div block */}
         {persons}
       </div>
     );
