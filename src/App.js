@@ -64,7 +64,20 @@ class App extends Component {
       cursor: 'pointer'
     };
 
-    let persons = null;     // variable to equate to initial hidden/null div
+    // create variable of object of CSS classes from App.css
+    // .join merges both elements into 1 string "red bold" setting it as the CSS class
+    // const classes = ['red', 'bold'].join(' ');
+    // Make CSS class dynamic so if there are 1, 2 or 3+, classes will be added to <p> accordingly
+    const classes = [];
+    if (this.state.persons.length <= 2) {
+      classes.push('red');  // if 2 or less elements, add red class
+    }
+    if (this.state.persons.length <= 1) {
+      classes.push('bold'); // if 1 or less, add bold class
+    }
+
+    // variable to equate to initial hidden/null div
+    let persons = null;
 
     // Conditional statement switch between null or inserting div block of Person component
     if (this.state.showPersons) {
@@ -94,7 +107,9 @@ class App extends Component {
     return (
       <div className="App">
         <h1>I'm a React App</h1>
-        <p>This is working!</p>
+        {/* Change text depending on number of Persons are in state, red if 2, then bold red 1 
+            Note that .join makes array as a single string */}
+        <p className={classes.join(' ')}>This is working!</p>
         <button
           style={style}
           // On click, run fuction note lack of () as to not run automatically on load
