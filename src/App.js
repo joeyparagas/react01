@@ -2,12 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person'
 
-<<<<<<< HEAD
 // testing branch test02 from branch 01
-=======
-// testing branch test01 
-// adding new content
->>>>>>> test01
 class App extends Component {
   state = {
     persons: [
