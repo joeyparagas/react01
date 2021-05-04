@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person'
 
-// new master add
+// testing branch test02 from branch 01
+// merge with master
 class App extends Component {
   state = {
     persons: [
