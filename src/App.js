@@ -3,6 +3,7 @@ import './App.css';
 import Person from './Person/Person'
 
 // testing branch test02 from branch 01
+// merge with master
 class App extends Component {
   state = {
     persons: [
