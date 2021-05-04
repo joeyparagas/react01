@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person'
 
-// testing branch test01
+// testing branch test02 from branch 01
 class App extends Component {
   state = {
     persons: [
