@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person'
 
-// testing branch test01
+// testing branch test01 
+// adding new content
 class App extends Component {
   state = {
     persons: [
